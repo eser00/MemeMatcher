@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemeMatcher - AI Pose Detection</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎭 Meme Matcher</h1>
+            <p>Brought to u by brejn rrot</p>
+        </header>
+
+        <div class="main-content">
+            <div class="camera-section">
+                <div class="video-container">
+                    <video id="video" autoplay muted playsinline></video>
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div class="controls">
+                    <button id="startBtn" class="btn btn-primary">Start Camera</button>
+                    <button id="stopBtn" class="btn btn-secondary" disabled>Stop Camera</button>
+                </div>
+                <div id="status" class="status"></div>
+            </div>
+
+            <div class="meme-section">
+                <h2>Matched Meme</h2>
+                <div id="matchedMeme" class="matched-meme">
+                    <p class="placeholder">No match yet. Start your camera to begin!</p>
+                </div>
+                <div class="confidence-meter">
+                    <span>Confidence: </span>
+                    <span id="confidence">--</span>%
+                </div>
+            </div>
+        </div>
+
+        <div class="memes-library">
+            <h2>Available Memes</h2>
+            <div class="meme-grid">
+                
+                <div class="meme-card" data-meme="thumbsup">
+                    <img src="/memes/thumbsup.png" alt="Thumbs up meme">
+                    <h3>Thumbs Up</h3>
+                </div>
+                
+                <div class="meme-card" data-meme="cheer">
+                    <img src="/memes/cheer.webp" alt="Cheer meme">
+                    <h3>Cheer</h3>
+                </div>
+                <div class="meme-card" data-meme="lipa">
+                    <img src="/memes/lipa.png" alt="Lipa hand meme">
+                    <h3>Lipa</h3>
+                </div>
+                <div class="meme-card" data-meme="middle">
+                    <img src="/memes/middle.gif" alt="Middle fingers meme">
+                    <h3>Middle Fingers</h3>
+                </div>
+                <div class="meme-card" data-meme="shush">
+                    <img src="/memes/shush.jpg" alt="Shush meme">
+                    <h3>Shush</h3>
+                </div>
+                <div class="meme-card" data-meme="yawn">
+                    <img src="/memes/yawn.jpg" alt="Yawn meme">
+                    <h3>Yawn</h3>
+                </div>
+                <div class="meme-card" data-meme="shaq">
+                    <img src="/memes/shaq.png" alt="Shaq meme">
+                    <h3>Shaq</h3>
+                </div>
+                <div class="meme-card" data-meme="sonic">
+                    <img src="/memes/sonic.png" alt="Sonic meme">
+                    <h3>Sonic</h3>
+                </div>
+                <div class="meme-card" data-meme="cry">
+                    <img src="/memes/cry.png" alt="Cry meme">
+                    <h3>Cry</h3>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
