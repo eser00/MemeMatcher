@@ -1290,7 +1290,7 @@ function displayMatchedMeme(match) {
     
     if (match && match.confidence > 50) {
         matchedMemeDiv.innerHTML = `
-            <img src="/memes/${match.meme.filename}" alt="${match.meme.name}">
+            <img src="memes/${match.meme.filename}" alt="${match.meme.name}">
         `;
         confidenceSpan.textContent = match.confidence;
         
