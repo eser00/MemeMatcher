@@ -2,87 +2,160 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MemeMatcher - AI Pose Detection</title>
+    <meta name="theme-color" content="#0b0a09">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎭 Meme Matcher</h1>
-            <p>Brought to u by brejn rrot</p>
-        </header>
+    <div class="grain" aria-hidden="true"></div>
 
-        <div class="main-content">
-            <div class="camera-section">
-                <div class="video-container">
+    <header class="site-header">
+        <a class="wordmark" href="./">
+            <span class="wordmark-dot" aria-hidden="true"></span>
+            MemeMatcher
+        </a>
+        <div class="header-actions">
+            <div id="status" class="status">Loading models…</div>
+            <a href="https://github.com/eser00/MemeMatcher" target="_blank" rel="noopener" class="link">GitHub ↗</a>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="intro rise">
+            <h1>Strike a pose. <em>Find your meme.</em></h1>
+            <p class="eyebrow">Real-time gesture recognition · 9 poses</p>
+        </section>
+
+        <section class="workspace">
+            <aside class="library rise" aria-label="Poses">
+                <div class="library-head">
+                    <h2>Poses</h2>
+                    <span>Hold one steady</span>
+                </div>
+                <div class="meme-list">
+                    <div class="meme-card" data-meme="thumbsup">
+                        <div class="meme-frame"><img src="memes/thumbsup.png" alt="Thumbs up meme"></div>
+                        <span class="meme-index">01</span>
+                        <h3>Thumbs Up</h3>
+                        <p>Give a thumbs up</p>
+                    </div>
+                    <div class="meme-card" data-meme="cheer">
+                        <div class="meme-frame"><img src="memes/cheer.webp" alt="Cheer meme"></div>
+                        <span class="meme-index">02</span>
+                        <h3>Cheer</h3>
+                        <p>Both open hands above your head</p>
+                    </div>
+                    <div class="meme-card" data-meme="lipa">
+                        <div class="meme-frame"><img src="memes/lipa.png" alt="Lipa hand meme"></div>
+                        <span class="meme-index">03</span>
+                        <h3>Lipa</h3>
+                        <p>Index and pinky up, middle folded</p>
+                    </div>
+                    <div class="meme-card" data-meme="middle">
+                        <div class="meme-frame"><img src="memes/middle.gif" alt="Middle fingers meme"></div>
+                        <span class="meme-index">04</span>
+                        <h3>Middle Fingers</h3>
+                        <p>You know the one</p>
+                    </div>
+                    <div class="meme-card" data-meme="shush">
+                        <div class="meme-frame"><img src="memes/shush.jpg" alt="Shush meme"></div>
+                        <span class="meme-index">05</span>
+                        <h3>Shush</h3>
+                        <p>Finger on lips, eyebrows raised</p>
+                    </div>
+                    <div class="meme-card" data-meme="yawn">
+                        <div class="meme-frame"><img src="memes/yawn.jpg" alt="Yawn meme"></div>
+                        <span class="meme-index">06</span>
+                        <h3>Yawn</h3>
+                        <p>Open your mouth wide</p>
+                    </div>
+                    <div class="meme-card" data-meme="shaq">
+                        <div class="meme-frame"><img src="memes/shaq.png" alt="Shaq meme"></div>
+                        <span class="meme-index">07</span>
+                        <h3>Shaq</h3>
+                        <p>Make a T with your hands</p>
+                    </div>
+                    <div class="meme-card" data-meme="rock">
+                        <div class="meme-frame"><img src="memes/rock-eyebrow.jpg" alt="The Rock raising one eyebrow"></div>
+                        <span class="meme-index">08</span>
+                        <h3>The Rock</h3>
+                        <p>Raise one eyebrow</p>
+                    </div>
+                    <div class="meme-card" data-meme="takel">
+                        <div class="meme-frame"><img src="memes/take-the-l.gif" alt="Take the L dance"></div>
+                        <span class="meme-index">09</span>
+                        <h3>Take the L</h3>
+                        <p>Make an L with your thumb and index finger</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="camera rise">
+                <div id="videoContainer" class="viewfinder" data-state="loading">
                     <video id="video" autoplay muted playsinline></video>
                     <canvas id="canvas"></canvas>
+
+                    <div class="scanline" aria-hidden="true"></div>
+                    <div class="viewfinder-loading" aria-live="polite">
+                        <div class="reticle" aria-hidden="true"><i></i></div>
+                        <p>Loading models</p>
+                    </div>
+
+                    <span class="corner tl" aria-hidden="true"></span>
+                    <span class="corner tr" aria-hidden="true"></span>
+                    <span class="corner bl" aria-hidden="true"></span>
+                    <span class="corner br" aria-hidden="true"></span>
+
+                    <div class="hud hud-top">
+                        <span class="rec"><i aria-hidden="true"></i>REC <span id="timecode">00:00:00</span></span>
+                        <span class="hud-meta">640 × 480 · Mirror</span>
+                    </div>
+
+                    <div class="viewfinder-idle">
+                        <p>Camera off</p>
+                        <span>Your video never leaves this device.</span>
+                    </div>
+
+                    <div class="dock">
+                        <button id="startBtn" class="btn btn-primary" disabled>
+                            <span class="btn-dot" aria-hidden="true"></span>Start camera
+                        </button>
+                        <button id="stopBtn" class="btn btn-stop" disabled>
+                            <span class="btn-square" aria-hidden="true"></span>Stop camera
+                        </button>
+                    </div>
                 </div>
-                <div class="controls">
-                    <button id="startBtn" class="btn btn-primary">Start Camera</button>
-                    <button id="stopBtn" class="btn btn-secondary" disabled>Stop Camera</button>
-                </div>
-                <div id="status" class="status"></div>
             </div>
 
-            <div class="meme-section">
-                <h2>Matched Meme</h2>
+            <aside id="matchPanel" class="match rise">
+                <p class="eyebrow">Now matching</p>
                 <div id="matchedMeme" class="matched-meme">
                     <p class="placeholder">No match yet. Start your camera to begin!</p>
                 </div>
-                <div class="confidence-meter">
-                    <span>Confidence: </span>
-                    <span id="confidence">--</span>%
+                <div class="match-info">
+                    <h2 id="matchName" class="match-name">—</h2>
+                    <div class="meter">
+                        <div class="meter-head">
+                            <span>Confidence</span>
+                            <span><span id="confidence">--</span>%</span>
+                        </div>
+                        <div class="meter-track">
+                            <div id="confidenceBar" class="meter-fill"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </aside>
+        </section>
+    </main>
 
-        <div class="memes-library">
-            <h2>Available Memes</h2>
-            <div class="meme-grid">
-                
-                <div class="meme-card" data-meme="thumbsup">
-                    <img src="memes/thumbsup.png" alt="Thumbs up meme">
-                    <h3>Thumbs Up</h3>
-                </div>
-                
-                <div class="meme-card" data-meme="cheer">
-                    <img src="memes/cheer.webp" alt="Cheer meme">
-                    <h3>Cheer</h3>
-                </div>
-                <div class="meme-card" data-meme="lipa">
-                    <img src="memes/lipa.png" alt="Lipa hand meme">
-                    <h3>Lipa</h3>
-                </div>
-                <div class="meme-card" data-meme="middle">
-                    <img src="memes/middle.gif" alt="Middle fingers meme">
-                    <h3>Middle Fingers</h3>
-                </div>
-                <div class="meme-card" data-meme="shush">
-                    <img src="memes/shush.jpg" alt="Shush meme">
-                    <h3>Shush</h3>
-                </div>
-                <div class="meme-card" data-meme="yawn">
-                    <img src="memes/yawn.jpg" alt="Yawn meme">
-                    <h3>Yawn</h3>
-                </div>
-                <div class="meme-card" data-meme="shaq">
-                    <img src="memes/shaq.png" alt="Shaq meme">
-                    <h3>Shaq</h3>
-                </div>
-                <div class="meme-card" data-meme="sonic">
-                    <img src="memes/sonic.png" alt="Sonic meme">
-                    <h3>Sonic</h3>
-                </div>
-                <div class="meme-card" data-meme="cry">
-                    <img src="memes/cry.png" alt="Cry meme">
-                    <h3>Cry</h3>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+    <footer class="site-footer">
+        <span>Brought to u by brejn rrot</span>
+        <span>PoseNet · MediaPipe Hands · Face Mesh — runs entirely in your browser</span>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
@@ -91,4 +164,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-

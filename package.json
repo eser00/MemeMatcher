@@ -1,22 +1,31 @@
 {
+  "homepage": "https://eser00.github.io/MemeMatcher",
   "name": "memematcher",
   "version": "1.0.0",
   "description": "AI/ML project that matches user camera actions to meme images",
   "main": "server.js",
   "scripts": {
+    "build": "node scripts/build.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "keywords": ["ai", "ml", "pose-detection", "meme"],
+  "keywords": [
+    "ai",
+    "ml",
+    "pose-detection",
+    "meme"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "multer": "^1.4.5-lts.1",
-    "cors": "^2.8.5"
+    "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "nodemon": "^3.0.1"
   }
 }
-
